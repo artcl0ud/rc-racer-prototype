@@ -15,28 +15,39 @@ public class Car : MonoBehaviour
     public Transform wheelRearRight;
 
     public float motorTorque = 100f;
-    public float maxSteer = 20f;
+    public float maxSteer = 30f;
 
     void FixedUpdate()
+    {
+        Steer();
+        AccelerateBrake();
+    }
+
+    void Update()
+    {
+        AnimateWheelColliders();
+    }
+
+    private void AccelerateBrake()
     {
         wheelColliderRearLeft.motorTorque = Input.GetAxis("Vertical") * motorTorque;
         wheelColliderRearRight.motorTorque = Input.GetAxis("Vertical") * motorTorque;
     }
 
-    void Start()
+    private void Steer()
     {
-        
+        wheelColliderFrontLeft.steerAngle = Input.GetAxis("Horizontal") * maxSteer;
+        wheelColliderFrontRight.steerAngle = Input.GetAxis("Horizontal") * maxSteer;
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void AnimateWheelColliders()
     {
         var pos = Vector3.zero;
         var rot = Quaternion.identity;
 
         wheelColliderFrontLeft.GetWorldPose(out pos, out rot);
         wheelFrontLeft.position = pos;
-        wheelFrontLeft.rotation = rot * Quaternion.Euler(0,180,0);
+        wheelFrontLeft.rotation = rot * Quaternion.Euler(0,0,0);
 
         wheelColliderFrontRight.GetWorldPose(out pos, out rot);
         wheelFrontRight.position = pos;
@@ -44,7 +55,7 @@ public class Car : MonoBehaviour
 
         wheelColliderRearLeft.GetWorldPose(out pos, out rot);
         wheelRearLeft.position = pos;
-        wheelRearLeft.rotation = rot * Quaternion.Euler(0,90,0);
+        wheelRearLeft.rotation = rot * Quaternion.Euler(0,0,0);
 
         wheelColliderRearRight.GetWorldPose(out pos, out rot);
         wheelRearRight.position = pos;
