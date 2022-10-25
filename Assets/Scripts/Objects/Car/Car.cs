@@ -47,18 +47,18 @@ public class Car : MonoBehaviour
 
         wheelColliderFrontLeft.GetWorldPose(out pos, out rot);
         wheelFrontLeft.position = pos;
-        wheelFrontLeft.rotation = rot * Quaternion.Euler(0,0,0);
+        wheelFrontLeft.rotation = rot;
 
         wheelColliderFrontRight.GetWorldPose(out pos, out rot);
         wheelFrontRight.position = pos;
-        wheelFrontRight.rotation = rot;
+        wheelFrontRight.rotation = rot * Quaternion.Euler(0,180,0);
 
         wheelColliderRearLeft.GetWorldPose(out pos, out rot);
         wheelRearLeft.position = pos;
-        wheelRearLeft.rotation = rot * Quaternion.Euler(0,0,0);
+        wheelRearLeft.rotation = rot;
 
         wheelColliderRearRight.GetWorldPose(out pos, out rot);
         wheelRearRight.position = pos;
-        wheelRearRight.rotation = rot;
+        wheelRearRight.rotation = rot * Quaternion.Euler(0,180,0);
     }
 }
