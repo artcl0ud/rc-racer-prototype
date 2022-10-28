@@ -2,39 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenuManager : MonoBehaviour
 {
+    public Canvas pauseMenu;
+    public Scene currentScene;
+    
     // Start is called before the first frame update
-    void Start()
+    private void Awake() 
     {
-        this.gameObject.GetComponent<Canvas>().enabled = false;
+        currentScene = SceneManager.GetActiveScene();
+        Debug.Log("Current active scene is '" + currentScene.name + "'.");
+        
+        pauseMenu.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        string reqSceneName = "InGame";
-        Scene currentScene = SceneManager.GetActiveScene();
-        bool canOpenMenuToggle = false;
-        bool menuIsOpen = false;
+        PauseGame();
+    }
 
-        Debug.Log("Active Scene is '" + currentScene.name + "'.");
-
-        if (currentScene.name == reqSceneName)
+    private void PauseGame()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
-            canOpenMenuToggle = true;
-
-            if (canOpenMenuToggle == true && Input.GetKeyDown(KeyCode.Escape))
-            {
-                menuIsOpen = true;
-                this.gameObject.GetComponent<Canvas>().enabled = true;
-            }
-            if (menuIsOpen = true && Input.GetKeyUp(KeyCode.Escape))
-            {
-                menuIsOpen = false;
-                this.gameObject.GetComponent<Canvas>().enabled = false;
-            }
+            pauseMenu.enabled = !pauseMenu.enabled;
         }
     }
 }
