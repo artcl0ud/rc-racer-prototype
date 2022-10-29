@@ -11,10 +11,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - WheelCollider
+  - Car
+  - Props
+  - Checkpoint
   - 
   - 
   - 

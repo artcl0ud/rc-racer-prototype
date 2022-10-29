@@ -7,6 +7,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public InputController inputController { get; private set; }
+    public Scene currentScene;
+
+    //UI
+    public Canvas pauseMenu;
 
     void Awake()
     {
@@ -24,21 +28,25 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
 
         inputController = GetComponentInChildren<InputController>();
+        currentScene = SceneManager.GetActiveScene();
+
+        pauseMenu.enabled = false;
     }
 
     void Update()
     {
+        PauseGame();
         ResetGame();
-        QuitGame();
+        //QuitGame();
     }
 
-    void QuitGame()
-    {
-        if(Input.GetKeyUp(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-    }
+    // void QuitGame()
+    // {
+    //     if(Input.GetKeyUp(KeyCode.Escape))
+    //     {
+    //         Application.Quit();
+    //     }
+    // }
 
     void ResetGame()
     {
@@ -46,6 +54,14 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+
+    private void PauseGame()
+    {
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            pauseMenu.enabled = !pauseMenu.enabled;
         }
     }
 }
